@@ -1,0 +1,9 @@
+mongorestore -h ds251223.mlab.com:51223 -d loc8rb-cloud -u el-nico-loc8r -p 123@abc2 "C:\Users\Nicholas C\Desktop\loc8rb\mongodump\Loc8r"
+
+mongodb://el-nico-loc8r:123@abc2@ds251223.mlab.com:51223/loc8rb-cloud
+
+
+
+mongodump -h localhost:27017 -d Loc8r -o "C:\Users\Nicholas C\Desktop\loc8rb\mongodump"
+
+mongo ds251223.mlab.com:51223/loc8rb-cloud -u el-nico-loc8r -p 123@abc2
