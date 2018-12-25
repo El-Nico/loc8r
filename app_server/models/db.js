@@ -4,8 +4,8 @@ var gracefulShutdown;
 //connections string and create a connection to database
 var dbURI = 'mongodb://localhost/Loc8r';
 //process.env.NODE_ENV= 'production';
-if (process.env.NODE_ENV === 'production'){
-    dbURI = process.env.MONGOLAB_URI;
+if (process.env.NODE_ENV === 'production') {
+    dbURI = 'mongodb://el-nico-loc8r:123@abc2@ds251223.mlab.com:51223/loc8rb-cloud';
 }
 mongoose.connect(dbURI);
 
