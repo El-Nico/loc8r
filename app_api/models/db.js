@@ -12,9 +12,8 @@ mongoose.connect(dbURI, {
     uri_decode_auth: true 
     }, function(err, db) {
 
-    }
+    }, { useNewUrlParser: true }
 );
-
 var readLine = require ("readline");
 if (process.platform === "win32"){
 var rl = readLine.createInterface ({

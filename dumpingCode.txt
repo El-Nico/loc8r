@@ -7,3 +7,66 @@ mongodb://el-nico-loc8r:123@abc2@ds251223.mlab.com:51223/loc8rb-cloud
 mongodump -h localhost:27017 -d Loc8r -o "C:\Users\Nicholas C\Desktop\loc8rb\mongodump"
 
 mongo ds251223.mlab.com:51223/loc8rb-cloud -u el-nico-loc8r -p 123@abc2
+
+a rest api will interact with our database without the services of a shell
+
+db.locations.save({
+name: 'Starcups',
+address: '125 High Street, Reading, RG6 1PS',
+rating: 3,
+facilities: ['Hot drinks', 'Food', 'Premium wifi'],
+coords: [-0.9690884, 51.455041],
+openingTimes: [{
+days: 'Monday - Friday',
+opening: '7:00am',
+closing: '7:00pm',
+closed: false
+}, {
+days: 'Saturday',
+opening: '8:00am',
+closing: '5:00pm',
+closed: false
+}, {
+days: 'Sunday',
+closed: true
+}],
+reviews: {
+author: 'Simon Holmes',
+id: ObjectId(),
+rating: 5,
+timestamp: new Date("Jul 16, 2013"),
+reviewText: "What a great place. I can't say enough good
+things about it."
+}
+})
+
+db.locations.save({
+name: 'Blanch house',
+address: '129 Whitestown Avenue, Blanchardstown, Dublin 15',
+rating: 5,
+facilities: ['Hot drinks', 'Food', 'Premium wifi'],
+coords: [-6.39469310000004, 53.3969843],
+openingTimes: [{
+days: 'Monday - Friday',
+opening: '7:00am',
+closing: '7:00pm',
+closed: false
+}, {
+days: 'Saturday',
+opening: '8:00am',
+closing: '5:00pm',
+closed: false
+}, {
+days: 'Sunday',
+closed: true
+}],
+reviews: {
+author: 'Nicholas C.',
+id: ObjectId(),
+rating: 5,
+timestamp: new Date("Dec 28, 2018"),
+reviewText: "What a great place. I can't say enough good
+things about it."
+}
+})
+
