@@ -1,10 +1,12 @@
 doctype html
-html
+html(ng-app='loc8rApp')
   head
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title= title
     link(rel='stylesheet', href='/bootstrap/css/amelia.bootstrap.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    
+    
   body
    .navbar.navbar-default.navbar-fixed-top
       .container
@@ -20,15 +22,27 @@ html
               a(href='/about/') About
 
     .container
-      block content
+      div(ng-view)  
+        block content
 
       footer
         .row
           .col-xs-12
-            small &copy; Simon Holmes 2014
-
-    script(src ='/angular/angular.min.js')
-    script(src ='/angular/loc8rApp.js')
+            small &copy; Nicholas Chibuike-Eruba 2019
     script(src='/javascripts/jquery-1.11.1.min.js')
+    script(src='/javascripts/validations.js')
+    //script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js')
+    script(src='/lib/angular.min.js')
+    script(src='/lib/angular-route.min.js')
+    script(src='/lib/angular-route.min.js.map')
+    script(src='/angular/loc8r.min.js')
+    //script(src='/app.js')
+    //script(src='/home/home.controller.js')
+    //script(src='/common/services/loc8rdata.service.js')
+    //script(src='/common/services/geolocation.service.js')
+    //script(src='/common/filters/formatDistance.filter.js')
+    //script(src='/common/directives/ratingStars/ratingStars.directive.js')
     script(src='/bootstrap/js/bootstrap.min.js')
-    script(src='/javascripts/validation.js')
+    
+    
+    

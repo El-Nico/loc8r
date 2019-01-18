@@ -1,0 +1,51 @@
+angular
+    .module('loc8rApp')
+    .controller('homeCtrl', homeCtrl);
+
+homeCtrl.$inject = ['$scope', 'loc8rData', 'geolocation'];
+function homeCtrl($scope, loc8rData, geolocation) {
+    var vm = this;
+    vm.pageHeader = {
+        title: 'Loc8r',
+        strapline: 'Find places to work with wifi near you!'
+    };
+    vm.sidebar = {
+        content: "Looking for wifi and a seat etc etc"
+    };
+    vm.message = "checking your location";
+    vm.getData = function (position) {
+        var lat = position.coords.latitude,
+            lng = position.coords.longitude;
+        vm.message = "searching for nearby places"
+        /*$http({
+            method : "GET",
+            url : "welcome.htm"
+        }).then(function mySuccess(response) {
+            $scope.myWelcome = response.data;
+        }, function myError(response) {
+            $scope.myWelcome = response.statusText;
+        });*/
+        loc8rData.locationByCoords(lat, lng)
+            .then(function (locdata) {
+                vm.message = locdata.data.length > 0 ? "" : "no nearby locations found";
+                vm.data = { locations: locdata.data };
+            }, function (e) {
+                console.log(e);
+                vm.message = "sorry, something went wrong";
+            });
+    };
+
+    vm.showError = function (error) {
+        $scope.$apply(function () {
+            vm.message = error.message;
+        });
+    };
+
+    vm.noGeo = function () {
+        $scope.$apply(function () {
+            vm.message = "Geolocation not supported by this browser.";
+        });
+    };
+
+    geolocation.getPosition(vm.getData, vm.showError, vm.noGeo);
+};

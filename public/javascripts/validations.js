@@ -3,7 +3,7 @@ $('#addReview').submit(function (e) {
     $('.alert.alert-danger').hide();
     if (!$('input#name').val() || !$('select#rating').val() ||
         !$('textarea#review').val()) {
-        if (!$('.alert.alert-danger').length) {
+        if ($('.alert.alert-danger').length) {
             console.log("prepend brother is working");
             $('.alert.alert-danger').show();
         } else {

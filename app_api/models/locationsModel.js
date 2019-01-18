@@ -26,9 +26,9 @@ var locationSchema= new mongoose.Schema({
     //reviews: reviewSchema
     reviews:{
         review:[{
-            author: {type:String, required: true},
-            rating: {type: Number, required: true, min:0, max:5},
-            reviewText: {type:String, required: true},
+            author: {type:String, required: false},
+            rating: {type: Number, required: false, min:0, max:5},
+            reviewText: {type:String, required: false},
             createdOn: {type: Date, "default": Date.now}
         }]
     }

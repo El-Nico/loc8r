@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
     apiOptions.server = "https://calm-sierra-43904.herokuapp.com"
 }
 
-/* GET 'home' page */
+/*/* GET 'home' page 
 module.exports.homelist = function (req, res) {
     //all this shit should come from a base
     var requestOptions, path;
@@ -34,6 +34,10 @@ module.exports.homelist = function (req, res) {
 
         renderHomePage(req, res, body);
     })
+};*/
+//angular get
+module.exports.homelist = function (req, res) {
+        renderHomePage(req, res);
 };
 var _formatDistance = function (distance) {
     var numDistance, unit;
@@ -46,7 +50,7 @@ var _formatDistance = function (distance) {
     }
     return numDistance + unit;
 };
-var renderHomePage = function (req, res, resBody) {
+/*var renderHomePage = function (req, res, resBody) {
     var message;
     if (!(resBody instanceof Array)) {
         message = "API lookup error";
@@ -64,6 +68,17 @@ var renderHomePage = function (req, res, resBody) {
         sidebar: "Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for.",
         locations: resBody,
         message: message
+    });
+}*/
+//angular render home page
+var renderHomePage = function (req, res) {
+    res.render('locations-list', {
+        title: 'Loc8r - find a place to work with wifi',
+        pageHeader: {
+            title: 'Loc8r',
+            strapline: 'Find places to work with wifi near you!'
+        },
+        sidebar: "Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for.",
     });
 }
 //get location info function
@@ -137,7 +152,8 @@ var renderReviewForm = function (req, res, locDetail) {
         pageHeader: {
             title: 'Review ' + locDetail.name
         },
-        error: req.query.err
+        error: req.query.err,
+        url: req.originalUrl
     });
 };
 
