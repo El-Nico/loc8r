@@ -1,4 +1,3 @@
-
 (function () {
     angular.module('loc8rApp', ['ngRoute','ngSanitize','ui.bootstrap']);
 
@@ -26,7 +25,17 @@
                 controller: 'locationDetailCtrl',
                 controllerAs: 'vm'
             })
-          .otherwise({
+            .when('/register', {
+                templateUrl: '/auth/register/register.view.html',
+                controller: 'registerCtrl',
+                controllerAs: 'vm'
+            })
+            .when('/login', {
+                templateUrl: '/auth/login/login.view.html',
+                controller: 'loginCtrl',
+                controllerAs: 'vm'
+            })
+            .otherwise({
                 redirectTo: '/'
             });
 

@@ -5,6 +5,12 @@ var express = require('express');
 var router = express.Router();
 var ctrlLocations = require('../controllers/locations');
 var ctrlReviews = require('../controllers/reviews');
+var ctrlAuth = require('../controllers/authentication')
+var jwt = require('express-jwt');
+var auth = jwt({
+    secret: process.env.JWT_SECRET,
+    userProperty: 'payload'
+});
 
 //locations
 //get all locations by distance near to each other using geonear
@@ -20,12 +26,16 @@ router.delete('/locations/:locationid', ctrlLocations.locationsDeleteOne);
 
 //reviews
 //create one new review
-router.post('/locations/:locationid/reviews', ctrlReviews.reviewsCreate);
+router.post('/locations/:locationid/reviews', auth, ctrlReviews.reviewsCreate);
 //get one review
 router.get('/locations/:locationid/review/:reviewid', ctrlReviews.reviewsReadOne);
 //update one review
-router.put('/locations/:locationid/review/:reviewid', ctrlReviews.reviewsUpdateOne);
+router.put('/locations/:locationid/review/:reviewid', auth,ctrlReviews.reviewsUpdateOne);
 //delete a review
-router.delete('/locations/:locationid/review/:reviewid', ctrlReviews.reviewsDeleteOne);
+router.delete('/locations/:locationid/review/:reviewid', auth, ctrlReviews.reviewsDeleteOne);
+
+//authentication
+router.post('/register', ctrlAuth.register);
+router.post('/login', ctrlAuth.login);
 
 module.exports= router;

@@ -9,6 +9,7 @@ var sendJsonResponse = function (res, status, content) {
 }
 //review functions
 module.exports.reviewsCreate = function (req, res) {
+    getAuthor(req, res, function(req, res, userName){
     var locationid = req.params.locationid;
     if (locationid) {
         loc
@@ -19,7 +20,7 @@ module.exports.reviewsCreate = function (req, res) {
                     if (err) {
                         sendJsonResponse(res, 400, err);
                     } else {
-                        doAddReview(req, res, location);
+                        doAddReview(req, res, location, userName);
                     }
                 }
             );
@@ -28,16 +29,48 @@ module.exports.reviewsCreate = function (req, res) {
             "message": "Not found, locationid required"
         });
     }
+});
 };
-var doAddReview = function (req, res, location) {
+
+//check that the user exists from payload middleware and
+//get his/her name
+var User = mongoose.model('User');
+var getAuthor = function(req, res, callback){
+    //check that there is a payload and that the payload
+    //has an email
+    if (req.payload &&  req.payload.email){
+    User
+        .findOne({ email : req.payload.email})
+        .exec(function(err, user){
+            if(!user){
+                sendJsonResponse(res, 404, {
+                    "message": "User not found"
+                });
+                return;
+            } else if(err){
+                console.log(err);
+                sendJsonResponse(res, 404, err);
+                return;
+            }
+            callback(req, res, user.name);
+        });
+        } else{
+            sendJsonResponse(res, 404, {
+                "message": "User not found"
+            });
+            return;
+        }
+};
+
+var doAddReview = function (req, res, location, author) {
     if (!location) {
         sendJsonResponse(res, 404, {
             "message": "locationid not found"
         });
     } else {
         
-            location.reviews.review.push({
-        author: req.body.author,
+        location.reviews.review.push({
+        author: author,
         rating: req.body.rating,
         reviewText: req.body.reviewText
     })
